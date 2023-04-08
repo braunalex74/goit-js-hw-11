@@ -1,4 +1,5 @@
 import Notiflix from 'notiflix';
+import axios from 'axios';
 
 const API_KEY = '';
 const form = document.querySelector('#search-form');
