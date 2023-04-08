@@ -148,3 +148,11 @@ const searchImages = async () => {
     console.error(error);
   }
 };
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  searchQuery = event.currentTarget.elements.searchQuery.value.trim();
+  gallery.innerHTML = '';
+  page = 1;
+  searchImages();
+});
