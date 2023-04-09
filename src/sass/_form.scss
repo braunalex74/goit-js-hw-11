@@ -102,3 +102,22 @@ body {
     max-width: 100%;
   }
 }
+
+.photo-card:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+.photo-card {
+  margin-bottom: 20px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  transform-origin: center center;
+}
+
+.photo-card:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
