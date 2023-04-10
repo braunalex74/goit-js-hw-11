@@ -1,8 +1,8 @@
 import Notiflix from 'notiflix';
 import axios from 'axios';
 
-import Notiflix from 'notiflix';
-import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
@@ -12,8 +12,8 @@ let searchQuery = '';
 let page = 1;
 
 const fetchImages = async () => {
-  const API_KEY = '';
-  const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
+  const apiKey = process.env.API_KEY;
+  const URL = `https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
 
   try {
     const response = await axios.get(URL);
