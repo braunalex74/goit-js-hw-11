@@ -12,7 +12,7 @@ let searchQuery = '';
 let page = 1;
 
 const fetchImages = async () => {
-  const API_KEY = '35196803-673541e2c14d14661bda49ca7';
+  const API_KEY = '';
   const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
 
   try {
