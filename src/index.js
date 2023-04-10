@@ -74,12 +74,12 @@ const searchImages = async () => {
     page += 1;
     loadMoreBtn.getElementsByClassName.display = 'block';
 
-    const galleryImages = document.querySelectorAll('.gallery-image');
+    const galleryImages = document.querySelectorAll('.photo-card img');
 
     galleryImages.forEach(image => {
       image.addEventListener('click', () => {
         const largeImageURL = image.dataset.source;
-        Notiflix.Modal.image(largeImageURL);
+        window.open(largeImageURL);
       });
 
       image.addEventListener('mouseover', () => {
@@ -106,4 +106,39 @@ form.addEventListener('submit', event => {
   gallery.innerHTML = '';
   page = 1;
   searchImages();
+});
+
+const galleryImages = document.querySelectorAll('.photo-card img');
+const modal = document.querySelector('.modal');
+const modalImage = document.querySelector('.modal-image');
+
+// Функція для відкриття модального вікна
+const openModal = source => {
+  modalImage.src = source;
+  modal.classList.add('is-open');
+};
+
+// Функція для закриття модального вікна
+const closeModal = () => {
+  modal.classList.remove('is-open');
+  modalImage.src = '';
+};
+
+// Навішуємо обробник події на кожен елемент галереї
+galleryImages.forEach(image => {
+  image.addEventListener('click', () => {
+    const largeImageURL = image.dataset.source;
+    openModal(largeImageURL);
+  });
+});
+
+// Навішуємо обробник події на кнопку закриття модального вікна
+const closeButton = document.querySelector('.modal-close-btn');
+closeButton.addEventListener('click', closeModal);
+
+// Навішуємо обробник події на клавішу "Escape"
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
 });
