@@ -137,6 +137,7 @@ form.addEventListener('submit', event => {
   gallery.innerHTML = '';
   page = 1;
   searchImages();
+  event.currentTarget.reset();
 });
 
 // const addImageEvents = () => {
