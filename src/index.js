@@ -120,7 +120,7 @@ const searchImages = async () => {
 
       image.addEventListener('mouseout', () => {
         const info = image.nextElementSibling;
-        info.style.display = 'none';
+        info.style.display = 'block';
       });
     });
   } catch (error) {
@@ -138,6 +138,36 @@ form.addEventListener('submit', event => {
   page = 1;
   searchImages();
 });
+
+// const addImageEvents = () => {
+//   const galleryImages = document.querySelectorAll('.photo-card img');
+
+//   galleryImages.forEach(image => {
+//     image.addEventListener('click', () => {
+//       const largeImageURL = image.dataset.source;
+//       const instance = basicLightbox.create(`
+//         <img src="${largeImageURL}" alt="${image.alt}" />
+//       `);
+//       instance.show();
+
+//       const modalImage = instance.element().querySelector('img');
+
+//       modalImage.addEventListener('click', () => {
+//         instance.close();
+//       });
+//     });
+
+//     image.addEventListener('mouseover', () => {
+//       const info = image.nextElementSibling;
+//       info.style.display = 'block';
+//     });
+
+//     image.addEventListener('mouseout', () => {
+//       const info = image.nextElementSibling;
+//       info.style.display = 'none';
+//     });
+//   });
+// };
 
 // const apiKey = process.env.API_KEY;
 // const SEARCH_ENDPOINT = 'https://pixabay.com/api/';
