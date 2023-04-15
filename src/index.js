@@ -2,6 +2,7 @@ import Notiflix from 'notiflix';
 import axios from 'axios';
 
 import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -13,20 +14,14 @@ const loadMoreBtn = document.querySelector('.load-more');
 let searchQuery = '';
 let page = 1;
 
-const fetchImages = function () {
+const fetchImages = async () => {
   const apiKey = process.env.API_KEY;
   const URL = `https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
 
   try {
-    return axios
-      .get(URL)
-      .then(function (responce) {
-        const data = responce.data;
-        return data.hits;
-      })
-      .catch(function (error) {
-        throw new Error(error);
-      });
+    const response = await axios.get(URL);
+    const data = response.data;
+    return data.hits;
   } catch (error) {
     throw new Error(error);
   }
