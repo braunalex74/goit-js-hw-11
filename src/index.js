@@ -13,7 +13,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 
 let searchQuery = '';
 let page = 1;
-const apiKey = process.env.API_KEY;
+const apiKey = '35196803-673541e2c14d14661bda49ca7';
 
 const fetchImages = async () => {
   const URL = `https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
