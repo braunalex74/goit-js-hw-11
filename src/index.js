@@ -134,6 +134,7 @@ const searchImages = async () => {
 form.addEventListener('submit', event => {
   event.preventDefault();
   searchQuery = event.currentTarget.elements.searchQuery.value.trim();
+  console.log(searchQuery);
   gallery.innerHTML = '';
   page = 1;
   searchImages();
