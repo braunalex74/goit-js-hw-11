@@ -12,6 +12,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 
 let searchQuery = '';
 let page = 1;
+let perPage = 40;
 
 // const fetchImages = async () => {
 //   const apiKey = process.env.API_KEY;
@@ -89,7 +90,7 @@ const renderImageCards = images => {
 const searchImages = async () => {
   try {
     Notiflix.Loading.dots('Searching for images...');
-    const images = await fetchImages(searchQuery, page);
+    const images = await fetchImages(searchQuery, page, perPage);
     if (images.length === 0) {
       Notiflix.Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -100,26 +101,32 @@ const searchImages = async () => {
     Notiflix.Loading.remove();
     renderImageCards(images);
     page += 1;
-    loadMoreBtn.getElementsByClassName.display = 'block';
 
-    const galleryImages = document.querySelectorAll('.photo-card img');
+    if (images.length < perPage) {
+      loadMoreBtn.style.display = 'none';
+    } else {
+      loadMoreBtn.style.display = 'block';
+    }
+    // loadMoreBtn.getElementsByClassName.display = 'block';
 
-    galleryImages.forEach(image => {
-      // image.addEventListener('click', () => {
-      //   const largeImageURL = image.dataset.source;
-      //   window.open(largeImageURL);
-      // });
+    // const galleryImages = document.querySelectorAll('.photo-card img');
 
-      image.addEventListener('mouseover', () => {
-        const info = image.nextElementSibling;
-        info.style.display = 'block';
-      });
+    // galleryImages.forEach(image => {
+    //   // image.addEventListener('click', () => {
+    //   //   const largeImageURL = image.dataset.source;
+    //   //   window.open(largeImageURL);
+    //   // });
 
-      image.addEventListener('mouseout', () => {
-        const info = image.nextElementSibling;
-        info.style.display = 'block';
-      });
-    });
+    //   image.addEventListener('mouseover', () => {
+    //     const info = image.nextElementSibling;
+    //     info.style.display = 'block';
+    //   });
+
+    //   image.addEventListener('mouseout', () => {
+    //     const info = image.nextElementSibling;
+    //     info.style.display = 'block';
+    //   });
+    // });
   } catch (error) {
     Notiflix.Notify.failure(
       'Oops, something went wrong. Please try again later.'
@@ -127,6 +134,7 @@ const searchImages = async () => {
     console.error(error);
   }
 };
+
 form.addEventListener('submit', event => {
   event.preventDefault();
   searchQuery = event.currentTarget.elements.searchQuery.value.trim();
@@ -134,4 +142,8 @@ form.addEventListener('submit', event => {
   page = 1;
   searchImages();
   event.currentTarget.reset();
+});
+
+loadMoreBtn.addEventListener('click', () => {
+  searchImages(searchQuery, page, perPage);
 });
