@@ -1,6 +1,8 @@
 import fetchImages from './api';
 
 import Notiflix from 'notiflix';
+// import axios from 'axios';
+
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
@@ -11,6 +13,19 @@ const loadMoreBtn = document.querySelector('.load-more');
 let searchQuery = '';
 let page = 1;
 let perPage = 40;
+
+// const fetchImages = async () => {
+//   const apiKey = process.env.API_KEY;
+//   const URL = `https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
+
+//   try {
+//     const response = await axios.get(URL);
+//     const data = response.data;
+//     return data.hits;
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// };
 
 const createImageCard = ({
   webformatURL,
@@ -69,53 +84,9 @@ const renderImageCards = images => {
 
     image.addEventListener('mouseout', () => {
       const info = image.nextElementSibling;
-      info.style.display = 'none';
+      info.style.display = 'block';
     });
   });
-};
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  searchQuery = event.currentTarget.elements.searchQuery.value.trim();
-  gallery.innerHTML = '';
-  page = 1;
-  searchImages();
-  event.currentTarget.reset();
-});
-
-const loadMoreImages = async () => {
-  try {
-    Notiflix.Loading.dots('Loading more images...');
-    const images = await fetchImages(searchQuery, page, perPage);
-    if (images.length === 0) {
-      loadMoreBtn.style.display = 'none';
-      return;
-    }
-    Notiflix.Loading.remove();
-    renderImageCards(images);
-    page += 1;
-
-    if (images.length < perPage) {
-      loadMoreBtn.style.display = 'none';
-    } else {
-      loadMoreBtn.style.display = 'block';
-    }
-  } catch (error) {
-    Notiflix.Notify.failure(
-      'Oops, something went wrong. Please try again later.'
-    );
-    console.error(error);
-  }
-};
-
-loadMoreBtn.addEventListener('click', loadMoreImages);
-
-const updateLoadMoreBtn = images => {
-  if (images.length >= perPage) {
-    loadMoreBtn.style.display = 'block';
-  } else {
-    loadMoreBtn.style.display = 'none';
-  }
 };
 
 const searchImages = async () => {
@@ -131,8 +102,12 @@ const searchImages = async () => {
     }
     Notiflix.Loading.remove();
     renderImageCards(images);
-    page += 1;
-    updateLoadMoreBtn(images);
+
+    if (images.length < perPage) {
+      loadMoreBtn.style.display = 'none';
+    } else {
+      loadMoreBtn.style.display = 'block';
+    }
   } catch (error) {
     Notiflix.Notify.failure(
       'Oops, something went wrong. Please try again later.'
@@ -140,3 +115,18 @@ const searchImages = async () => {
     console.error(error);
   }
 };
+
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  searchQuery = event.currentTarget.elements.searchQuery.value.trim();
+  gallery.innerHTML = '';
+  page = 1;
+  loadMoreBtn.style.display = 'none';
+  searchImages();
+  event.currentTarget.reset();
+});
+
+loadMoreBtn.addEventListener('click', () => {
+  page += 1;
+  searchImages();
+});
