@@ -104,7 +104,7 @@ const searchImages = async () => {
     renderImageCards(images);
 
     if (images.length < perPage) {
-      loadMoreBtn.style.display = 'none';
+      loadMoreBtn.style.display = 'block';
     } else {
       loadMoreBtn.style.display = 'block';
     }
