@@ -79,12 +79,12 @@ const renderImageCards = images => {
 
     image.addEventListener('mouseover', () => {
       const info = image.nextElementSibling;
-      info.style.display = 'block';
+      info.style.visibility = 'visible';
     });
 
     image.addEventListener('mouseout', () => {
       const info = image.nextElementSibling;
-      info.style.display = 'block';
+      info.style.visibility = 'hidden';
     });
   });
 };
@@ -104,7 +104,7 @@ const searchImages = async () => {
     renderImageCards(images);
 
     if (images.length < perPage) {
-      loadMoreBtn.style.display = 'block';
+      loadMoreBtn.style.display = 'none';
     } else {
       loadMoreBtn.style.display = 'block';
     }
