@@ -107,26 +107,6 @@ const searchImages = async () => {
     } else {
       loadMoreBtn.style.display = 'block';
     }
-    // loadMoreBtn.getElementsByClassName.display = 'block';
-
-    // const galleryImages = document.querySelectorAll('.photo-card img');
-
-    // galleryImages.forEach(image => {
-    //   // image.addEventListener('click', () => {
-    //   //   const largeImageURL = image.dataset.source;
-    //   //   window.open(largeImageURL);
-    //   // });
-
-    //   image.addEventListener('mouseover', () => {
-    //     const info = image.nextElementSibling;
-    //     info.style.display = 'block';
-    //   });
-
-    //   image.addEventListener('mouseout', () => {
-    //     const info = image.nextElementSibling;
-    //     info.style.display = 'block';
-    //   });
-    // });
   } catch (error) {
     Notiflix.Notify.failure(
       'Oops, something went wrong. Please try again later.'
@@ -142,8 +122,4 @@ form.addEventListener('submit', event => {
   page = 1;
   searchImages();
   event.currentTarget.reset();
-});
-
-loadMoreBtn.addEventListener('click', () => {
-  searchImages(searchQuery, page, perPage);
 });
