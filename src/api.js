@@ -1,8 +1,7 @@
-const dotenv = require('dotenv');
-dotenv.config();
+// import axios from 'axios';
 
 const fetchImages = async (searchQuery, page, perPage) => {
-  const apiKey = process.env.API_KEY;
+  const apiKey = '35196803-673541e2c14d14661bda49ca7';
   const URL = `https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`;
 
   try {
